@@ -2,6 +2,7 @@
 
 # Build script for RO-Crate
 # This script creates/rebuilds the hello_world-ro-crate directory
+# by moving/copying existing folder elements
 
 set -e
 
@@ -18,14 +19,102 @@ fi
 # Create crate directory
 mkdir -p "$CRATE_DIR"
 
-# Copy CWL files
-echo "Copying CWL files..."
-cp hello_world.cwl "$CRATE_DIR/"
-cp hello_world-job.json "$CRATE_DIR/"
+# Files to include in RO-Crate
+FILES_TO_COPY=(
+  "hello_world.cwl"
+  "hello_world-job.json"
+  "pizza.owl"
+  "README.md"
+)
+
+# Copy workflow and data files
+echo "Copying project files to RO-Crate..."
+for file in "${FILES_TO_COPY[@]}"; do
+  if [ -f "$file" ]; then
+    echo "  - Copying $file"
+    cp "$file" "$CRATE_DIR/"
+  else
+    echo "  - Warning: $file not found, skipping"
+  fi
+done
+
+# Build hasPart array for metadata
+HAS_PART=""
+for file in "${FILES_TO_COPY[@]}"; do
+  if [ -f "$file" ]; then
+    if [ -n "$HAS_PART" ]; then
+      HAS_PART="$HAS_PART,"
+    fi
+    HAS_PART="$HAS_PART
+        {
+          \"@id\": \"$file\"
+        }"
+  fi
+done
+
+# Build file metadata entries
+FILE_METADATA=""
+for file in "${FILES_TO_COPY[@]}"; do
+  if [ -f "$file" ]; then
+    # Determine file type and encoding format
+    case "$file" in
+      *.cwl)
+        ENCODING="text/x-yaml"
+        TYPE="File"
+        NAME="Hello World CWL Tool"
+        DESC="A Common Workflow Language tool definition that implements a simple echo command with a customizable message parameter."
+        CONFORMS_TO=",
+      \"conformsTo\": {
+        \"@id\": \"https://w3id.org/cwl/v1.2/\"
+      }"
+        ;;
+      *.json)
+        ENCODING="application/json"
+        TYPE="File"
+        NAME="Hello World CWL Job Input"
+        DESC="A CWL job input file providing a custom message for the hello_world workflow."
+        CONFORMS_TO=""
+        ;;
+      *.owl)
+        ENCODING="application/rdf+xml"
+        TYPE="File"
+        NAME="Pizza Ontology"
+        DESC="An OWL ontology about pizzas and their toppings, used as an example ontology."
+        CONFORMS_TO=""
+        ;;
+      *.md)
+        ENCODING="text/markdown"
+        TYPE="File"
+        NAME="README Documentation"
+        DESC="Documentation for the Hello World CWL workflow example."
+        CONFORMS_TO=""
+        ;;
+      *)
+        ENCODING="text/plain"
+        TYPE="File"
+        NAME="${file}"
+        DESC="Project file: ${file}"
+        CONFORMS_TO=""
+        ;;
+    esac
+    
+    if [ -n "$FILE_METADATA" ]; then
+      FILE_METADATA="$FILE_METADATA,"
+    fi
+    FILE_METADATA="$FILE_METADATA
+    {
+      \"@id\": \"$file\",
+      \"@type\": \"$TYPE\",
+      \"name\": \"$NAME\",
+      \"description\": \"$DESC\",
+      \"encodingFormat\": \"$ENCODING\"$([ -n "$CONFORMS_TO" ] && echo "$CONFORMS_TO" || echo "")
+    }"
+  fi
+done
 
 # Create RO-Crate metadata
 echo "Creating RO-Crate metadata..."
-cat > "$CRATE_DIR/ro-crate-metadata.json" << 'EOF'
+cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
 {
   "@context": "https://w3id.org/ro/crate/1.1/context",
   "@graph": [
@@ -43,8 +132,8 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << 'EOF'
       "@id": "./",
       "@type": "Dataset",
       "name": "Hello World CWL Workflow RO-Crate",
-      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow. This RO-Crate packages the CWL tool definition, job input file, and documentation to enable reproducible and shareable research workflows.",
-      "datePublished": "2025-01-27",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "datePublished": "$(date +%Y-%m-%d)",
       "license": {
         "@id": "https://spdx.org/licenses/Apache-2.0"
       },
@@ -53,18 +142,11 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << 'EOF'
         "Common Workflow Language",
         "workflow",
         "reproducibility",
-        "research object"
+        "research object",
+        "OWL",
+        "ontology"
       ],
-      "hasPart": [
-        {
-          "@id": "hello_world.cwl"
-        },
-        {
-          "@id": "hello_world-job.json"
-        },
-        {
-          "@id": "README.md"
-        }
+      "hasPart": [$HAS_PART
       ],
       "creator": [
         {
@@ -72,31 +154,7 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << 'EOF'
           "name": "Workflow Author"
         }
       ]
-    },
-    {
-      "@id": "hello_world.cwl",
-      "@type": "File",
-      "name": "Hello World CWL Tool",
-      "description": "A Common Workflow Language tool definition that implements a simple echo command with a customizable message parameter.",
-      "encodingFormat": "text/x-yaml",
-      "conformsTo": {
-        "@id": "https://w3id.org/cwl/v1.2/"
-      }
-    },
-    {
-      "@id": "hello_world-job.json",
-      "@type": "File",
-      "name": "Hello World CWL Job Input",
-      "description": "A CWL job input file providing a custom message for the hello_world workflow.",
-      "encodingFormat": "application/json"
-    },
-    {
-      "@id": "README.md",
-      "@type": "File",
-      "name": "README Documentation",
-      "description": "Documentation for the Hello World CWL workflow example.",
-      "encodingFormat": "text/markdown"
-    },
+    }$([ -n "$FILE_METADATA" ] && echo ",$FILE_METADATA" || echo ""),
     {
       "@id": "https://w3id.org/cwl/v1.2/",
       "@type": "CreativeWork",
@@ -111,74 +169,6 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << 'EOF'
 }
 EOF
 
-# Create README
-echo "Creating README..."
-cat > "$CRATE_DIR/README.md" << 'EOF'
-# Hello World CWL Workflow - RO-Crate
-
-This is a Research Object Crate (RO-Crate) containing a simple "Hello World" example using the Common Workflow Language (CWL).
-
-## What is RO-Crate?
-
-RO-Crate is a lightweight approach to packaging research data with their metadata. It uses schema.org-based JSON-LD to describe datasets, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
-
-Learn more at: https://www.researchobject.org/ro-crate/
-
-## Contents
-
-This RO-Crate contains:
-
-- **hello_world.cwl** - A CWL tool definition that implements a simple echo command
-- **hello_world-job.json** - A job input file with a custom message
-- **README.md** - This documentation file
-- **ro-crate-metadata.json** - RO-Crate metadata describing the package
-
-## Usage
-
-### Prerequisites
-
-Install a CWL runner:
-
-```bash
-pip3 install --user cwltool
-```
-
-### Running the Workflow
-
-Run with default message:
-
-```bash
-python3 -m cwltool hello_world.cwl
-```
-
-Run with custom message:
-
-```bash
-python3 -m cwltool hello_world.cwl hello_world-job.json
-```
-
-## RO-Crate Structure
-
-The `ro-crate-metadata.json` file contains structured metadata that:
-
-- Describes the dataset and its purpose
-- Lists all files included in the crate
-- Provides file types and formats
-- Links to relevant specifications (CWL v1.2)
-- Includes licensing information
-
-## Validation
-
-To validate this RO-Crate, you can use tools like:
-
-- [ro-crate-py](https://github.com/ResearchObject/ro-crate-py) - Python library for working with RO-Crates
-- [ro-crate-ruby](https://www.researchobject.org/ro-crate-ruby/) - Ruby library for RO-Crates
-
-## License
-
-This RO-Crate is licensed under Apache License 2.0.
-EOF
-
 # Create .gitignore
 echo "Creating .gitignore..."
 cat > "$CRATE_DIR/.gitignore" << 'EOF'
@@ -187,11 +177,13 @@ cat > "$CRATE_DIR/.gitignore" << 'EOF'
 .cwltool_cache/
 EOF
 
+echo ""
 echo "✅ RO-Crate built successfully in $CRATE_DIR/"
-echo "   Files created:"
-echo "   - hello_world.cwl"
-echo "   - hello_world-job.json"
-echo "   - ro-crate-metadata.json"
-echo "   - README.md"
-echo "   - .gitignore"
-
+echo "   Files included:"
+for file in "${FILES_TO_COPY[@]}"; do
+  if [ -f "$CRATE_DIR/$file" ]; then
+    echo "   ✓ $file"
+  fi
+done
+echo "   ✓ ro-crate-metadata.json"
+echo "   ✓ .gitignore"

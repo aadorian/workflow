@@ -1,63 +1,123 @@
-# Hello World CWL Workflow - RO-Crate
+# CWL Hello World Example
 
-This is a Research Object Crate (RO-Crate) containing a simple "Hello World" example using the Common Workflow Language (CWL).
+This is a simple "Hello World" example demonstrating the Common Workflow Language (CWL).
 
-## What is RO-Crate?
+## What is CWL?
 
-RO-Crate is a lightweight approach to packaging research data with their metadata. It uses schema.org-based JSON-LD to describe datasets, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
+Common Workflow Language (CWL) is an open standard for describing how to run command line tools and connect them to create workflows.
 
-Learn more at: https://www.researchobject.org/ro-crate/
+Tools and workflows described using CWL are portable across a variety of platforms that support the CWL standards. Using CWL, it is easy to scale complex data analysis and machine learning workflows from a single developer's laptop up to massively parallel cluster, cloud and high performance computing environments.
 
-## Contents
+## Key Features
 
-This RO-Crate contains:
+- **OPEN AND FREE**: Free and open standards
+- **COMMUNITY FIRST**: Community is a core principle of the CWL Project
+- **INTEROPERABILITY AND PORTABILITY**: Portable and interoperable across a variety of software and deployment environments
+- **VENDOR NEUTRALITY**: Developed by a multi-vendor working group of organizations and individuals/contributors
+- **REUSABILITY AND REPRODUCIBILITY**: Enables scientists to reuse and reproduce their data analysis workflows
+- **PARALLELIZATION AND SCALE**: Scalable from workstations to cluster, cloud, and high performance computing (HPC) environments
+- **ECOSYSTEM SUPPORT**: Supported by an ecosystem of tools, libraries, and editor plugins
+- **TRANSPARENT GOVERNANCE**: Designed with an open and transparent governance
 
-- **hello_world.cwl** - A CWL tool definition that implements a simple echo command
-- **hello_world-job.json** - A job input file with a custom message
-- **README.md** - This documentation file
-- **ro-crate-metadata.json** - RO-Crate metadata describing the package
+## Files
 
-## Usage
+- `hello_world.cwl` - The CWL tool description file
+- `hello_world-job.json` - An example input file with custom message
+- `hello_world-ro-crate/` - A Research Object Crate (RO-Crate) packaging of this workflow for reproducible research
 
-### Prerequisites
+## Prerequisites
 
-Install a CWL runner:
+Install a CWL runner. The most common one is `cwltool`:
 
 ```bash
 pip3 install --user cwltool
 ```
 
-### Running the Workflow
+## Usage
 
-Run with default message:
+### Using npm scripts (recommended)
+
+This project includes npm scripts for easy workflow execution:
+
+```bash
+# Run with default message
+npm start
+# or
+npm run hello
+
+# Run with custom message
+npm run hello:custom
+
+# Validate CWL file
+npm run validate
+
+# Run all tests
+npm test
+
+# Test RO-Crate
+npm run test:ro-crate
+
+# Validate RO-Crate metadata
+npm run ro-crate:validate
+
+# Remove RO-Crate
+npm run ro-crate:remove
+
+# Build/rebuild RO-Crate
+npm run ro-crate:build
+# or rebuild (remove + build)
+npm run ro-crate:rebuild
+```
+
+### Using cwltool directly
+
+#### Run with default message
 
 ```bash
 python3 -m cwltool hello_world.cwl
 ```
 
-Run with custom message:
+This will output: `Hello World`
+
+#### Run with custom message
 
 ```bash
 python3 -m cwltool hello_world.cwl hello_world-job.json
 ```
 
-## RO-Crate Structure
+This will output: `Hello from CWL!`
 
-The `ro-crate-metadata.json` file contains structured metadata that:
+## RO-Crate Example
 
-- Describes the dataset and its purpose
-- Lists all files included in the crate
-- Provides file types and formats
-- Links to relevant specifications (CWL v1.2)
-- Includes licensing information
+This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) example in the `hello_world-ro-crate/` directory. RO-Crate is a lightweight approach to packaging research data with metadata, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
 
-## Validation
+The RO-Crate includes:
+- The CWL workflow files
+- Structured metadata in `ro-crate-metadata.json`
+- Documentation
 
-To validate this RO-Crate, you can use tools like:
+See `hello_world-ro-crate/README.md` for more details about the RO-Crate structure and usage.
 
-- [ro-crate-py](https://github.com/ResearchObject/ro-crate-py) - Python library for working with RO-Crates
-- [ro-crate-ruby](https://www.researchobject.org/ro-crate-ruby/) - Ruby library for RO-Crates
+## Contributing
 
-## License
+This repository uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. See [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) for details.
 
-This RO-Crate is licensed under Apache License 2.0.
+### Example commit messages:
+```bash
+feat: add hello world CWL example
+fix(cwl): correct output handling
+docs: update README with CWL info
+```
+
+A git hook validates commit messages automatically. The CI workflow also enforces conventional commit standards on pull requests.
+
+## Learn More
+
+- Official Website: https://www.commonwl.org/
+- CWL Specification: https://www.commonwl.org/specification/
+- Getting Started Guide: https://www.commonwl.org/getting-started/
+- Research Objects / RO-Crate: https://www.researchobject.org/
+- RO-Crate Specification: https://www.researchobject.org/ro-crate/
+- Conventional Commits: https://www.conventionalcommits.org/
+
+

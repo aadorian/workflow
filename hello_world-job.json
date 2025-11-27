@@ -1,5 +1,9 @@
 {
-  "message": "Hello from CWL!"
+  "message": "Hello from CWL!",
+  "pizza_owl": {
+    "class": "File",
+    "path": "pizza.owl"
+  }
 }
 
 
