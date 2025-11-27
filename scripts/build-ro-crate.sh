@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Build script for RO-Crate
-# This script creates/rebuilds the hello_world-ro-crate directory
+# This script creates/rebuilds the ro-crate directory
 # by moving/copying existing folder elements
 
 set -e
 
-CRATE_DIR="hello_world-ro-crate"
+CRATE_DIR="ro-crate"
 
 echo "Building RO-Crate in $CRATE_DIR..."
 
@@ -86,7 +86,7 @@ for file in "${FILES_TO_COPY[@]}"; do
         ENCODING="text/markdown"
         TYPE="File"
         NAME="README Documentation"
-        DESC="Documentation for the Hello World CWL workflow example."
+        DESC="Documentation for the CWL workflow example."
         CONFORMS_TO=""
         ;;
       *)
@@ -131,8 +131,8 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
     {
       "@id": "./",
       "@type": "Dataset",
-      "name": "Hello World CWL Workflow RO-Crate",
-      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "name": "CWL Workflow RO-Crate",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
       "datePublished": "$(date +%Y-%m-%d)",
       "license": {
         "@id": "https://spdx.org/licenses/Apache-2.0"
@@ -148,6 +148,12 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
       ],
       "hasPart": [$HAS_PART
       ],
+      "url": {
+        "@id": "https://github.com/aadorian/workflow.git"
+      },
+      "isBasedOn": {
+        "@id": "https://github.com/aadorian/workflow.git"
+      },
       "creator": [
         {
           "@type": "Person",
@@ -155,6 +161,14 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
         }
       ]
     }$([ -n "$FILE_METADATA" ] && echo ",$FILE_METADATA" || echo ""),
+    {
+      "@id": "https://github.com/aadorian/workflow.git",
+      "@type": "Repository",
+      "name": "CWL Pizza Workflow Repository",
+      "description": "GitHub repository containing the CWL workflow, pizza ontology, and RO-Crate packaging",
+      "url": "https://github.com/aadorian/workflow.git",
+      "codeRepository": "https://github.com/aadorian/workflow.git"
+    },
     {
       "@id": "https://w3id.org/cwl/v1.2/",
       "@type": "CreativeWork",
@@ -187,3 +201,33 @@ for file in "${FILES_TO_COPY[@]}"; do
 done
 echo "   ✓ ro-crate-metadata.json"
 echo "   ✓ .gitignore"
+
+# Create git tag if in a git repository
+if git rev-parse --git-dir > /dev/null 2>&1; then
+  # Try to get version from package.json, fallback to timestamp
+  if [ -f "package.json" ]; then
+    VERSION=$(grep -o '"version": "[^"]*"' package.json | cut -d'"' -f4)
+    if [ -n "$VERSION" ]; then
+      TAG_NAME="ro-crate-v${VERSION}"
+    else
+      TAG_NAME="ro-crate-$(date +%Y%m%d-%H%M%S)"
+    fi
+  else
+    TAG_NAME="ro-crate-$(date +%Y%m%d-%H%M%S)"
+  fi
+  
+  # Check if tag already exists
+  if git rev-parse "$TAG_NAME" > /dev/null 2>&1; then
+    echo ""
+    echo "⚠️  Git tag $TAG_NAME already exists, skipping tag creation"
+  else
+    echo ""
+    echo "Creating git tag: $TAG_NAME"
+    git tag -a "$TAG_NAME" -m "RO-Crate build: $(date +%Y-%m-%d\ %H:%M:%S)"
+    echo "✅ Git tag created successfully"
+    echo "   To push the tag, run: git push origin $TAG_NAME"
+  fi
+else
+  echo ""
+  echo "ℹ️  Not in a git repository, skipping tag creation"
+fi

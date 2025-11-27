@@ -1,0 +1,13 @@
+{
+  "message": "Hello running the Common Worlflow Language Job!",
+  "pizza_owl": {
+    "class": "File",
+    "path": "pizza.owl"
+  },
+  "readme": {
+    "class": "File",
+    "path": "README.md"
+  }
+}
+
+

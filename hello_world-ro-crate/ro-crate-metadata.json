@@ -1,0 +1,109 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      },
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "Hello World CWL Workflow RO-Crate",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "datePublished": "2025-11-27",
+      "license": {
+        "@id": "https://spdx.org/licenses/Apache-2.0"
+      },
+      "keywords": [
+        "CWL",
+        "Common Workflow Language",
+        "workflow",
+        "reproducibility",
+        "research object",
+        "OWL",
+        "ontology"
+      ],
+      "hasPart": [
+        {
+          "@id": "pizza.cwl"
+        },
+        {
+          "@id": "pizza-job.json"
+        },
+        {
+          "@id": "pizza.owl"
+        },
+        {
+          "@id": "README.md"
+        }
+      ],
+      "url": {
+        "@id": "https://github.com/aadorian/workflow.git"
+      },
+      "isBasedOn": {
+        "@id": "https://github.com/aadorian/workflow.git"
+      },
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Workflow Author"
+        }
+      ]
+    },
+    {
+      "@id": "pizza.cwl",
+      "@type": "File",
+      "name": "Pizza CWL Workflow",
+      "description": "A Common Workflow Language tool definition that implements a simple echo command with pizza ontology and documentation inputs.",
+      "encodingFormat": "text/x-yaml",
+      "conformsTo": {
+        "@id": "https://w3id.org/cwl/v1.2/"
+      }
+    },
+    {
+      "@id": "pizza-job.json",
+      "@type": "File",
+      "name": "Pizza CWL Job Input",
+      "description": "A CWL job input file providing inputs for the pizza workflow including message, pizza ontology, and README.",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@id": "pizza.owl",
+      "@type": "File",
+      "name": "Pizza Ontology",
+      "description": "An OWL ontology about pizzas and their toppings, used as an example ontology.",
+      "encodingFormat": "application/rdf+xml"
+    },
+    {
+      "@id": "README.md",
+      "@type": "File",
+      "name": "README Documentation",
+      "description": "Documentation for the Hello World CWL workflow example.",
+      "encodingFormat": "text/markdown"
+    },
+    {
+      "@id": "https://github.com/aadorian/workflow.git",
+      "@type": "Repository",
+      "name": "CWL Pizza Workflow Repository",
+      "description": "GitHub repository containing the CWL workflow, pizza ontology, and RO-Crate packaging",
+      "url": "https://github.com/aadorian/workflow.git",
+      "codeRepository": "https://github.com/aadorian/workflow.git"
+    },
+    {
+      "@id": "https://w3id.org/cwl/v1.2/",
+      "@type": "CreativeWork",
+      "name": "Common Workflow Language v1.2"
+    },
+    {
+      "@id": "https://spdx.org/licenses/Apache-2.0",
+      "@type": "CreativeWork",
+      "name": "Apache License 2.0"
+    }
+  ]
+}
