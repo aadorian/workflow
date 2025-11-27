@@ -79,7 +79,20 @@ See `hello_world-ro-crate/README.md` for more details about the RO-Crate structu
 
 ## Contributing
 
-This repository uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. See [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) for details.
+We welcome contributions! This repository uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. See [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) for details.
+
+### Reporting Issues
+
+Found a bug or have a feature request? Please open an issue using our templates:
+- 🐛 [Bug Report](https://github.com/aadorian/workflow/issues/new?template=bug_report.md)
+- 💡 [Feature Request](https://github.com/aadorian/workflow/issues/new?template=feature_request.md)
+
+When reporting bugs, please include:
+- Steps to reproduce the issue
+- Expected vs actual behavior
+- Environment information (OS, Python version, cwltool version, etc.)
+- Error messages or logs
+- CWL workflow files if applicable
 
 ### Example commit messages:
 ```bash
