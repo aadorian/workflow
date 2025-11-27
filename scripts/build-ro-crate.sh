@@ -25,6 +25,7 @@ FILES_TO_COPY=(
   "pizza-job.json"
   "pizza.owl"
   "README.md"
+  "query_classes.sparql"
 )
 
 # Copy workflow and data files
@@ -89,6 +90,13 @@ for file in "${FILES_TO_COPY[@]}"; do
         DESC="Documentation for the CWL workflow example."
         CONFORMS_TO=""
         ;;
+      *.sparql)
+        ENCODING="application/sparql-query"
+        TYPE="File"
+        NAME="SPARQL Query - OWL Classes"
+        DESC="A SPARQL query to select all distinct OWL classes from the ontology, ordered alphabetically."
+        CONFORMS_TO=""
+        ;;
       *)
         ENCODING="text/plain"
         TYPE="File"
@@ -132,7 +140,7 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
       "@id": "./",
       "@type": "Dataset",
       "name": "CWL Workflow RO-Crate",
-      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, SPARQL queries, and documentation to enable reproducible and shareable research workflows.",
       "datePublished": "$(date +%Y-%m-%d)",
       "license": {
         "@id": "https://spdx.org/licenses/Apache-2.0"
@@ -144,7 +152,8 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
         "reproducibility",
         "research object",
         "OWL",
-        "ontology"
+        "ontology",
+        "SPARQL"
       ],
       "hasPart": [$HAS_PART
       ],
@@ -165,7 +174,7 @@ cat > "$CRATE_DIR/ro-crate-metadata.json" << EOF
       "@id": "https://github.com/aadorian/workflow.git",
       "@type": "Repository",
       "name": "CWL Pizza Workflow Repository",
-      "description": "GitHub repository containing the CWL workflow, pizza ontology, and RO-Crate packaging",
+      "description": "GitHub repository containing the CWL workflow, pizza ontology, SPARQL queries, and RO-Crate packaging",
       "url": "https://github.com/aadorian/workflow.git",
       "codeRepository": "https://github.com/aadorian/workflow.git"
     },

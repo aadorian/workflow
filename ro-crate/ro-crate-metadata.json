@@ -15,7 +15,7 @@
       "@id": "./",
       "@type": "Dataset",
       "name": "CWL Workflow RO-Crate",
-      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, SPARQL queries, and documentation to enable reproducible and shareable research workflows.",
       "datePublished": "2025-11-27",
       "license": {
         "@id": "https://spdx.org/licenses/Apache-2.0"
@@ -27,7 +27,8 @@
         "reproducibility",
         "research object",
         "OWL",
-        "ontology"
+        "ontology",
+        "SPARQL"
       ],
       "hasPart": [
         {
@@ -41,6 +42,9 @@
         },
         {
           "@id": "README.md"
+        },
+        {
+          "@id": "query_classes.sparql"
         }
       ],
       "url": {
@@ -88,10 +92,17 @@
       "encodingFormat": "text/markdown"
     },
     {
+      "@id": "query_classes.sparql",
+      "@type": "File",
+      "name": "SPARQL Query - OWL Classes",
+      "description": "A SPARQL query to select all distinct OWL classes from the ontology, ordered alphabetically.",
+      "encodingFormat": "application/sparql-query"
+    },
+    {
       "@id": "https://github.com/aadorian/workflow.git",
       "@type": "Repository",
       "name": "CWL Pizza Workflow Repository",
-      "description": "GitHub repository containing the CWL workflow, pizza ontology, and RO-Crate packaging",
+      "description": "GitHub repository containing the CWL workflow, pizza ontology, SPARQL queries, and RO-Crate packaging",
       "url": "https://github.com/aadorian/workflow.git",
       "codeRepository": "https://github.com/aadorian/workflow.git"
     },
