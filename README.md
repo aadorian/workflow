@@ -29,7 +29,7 @@ Tools and workflows described using CWL are portable across a variety of platfor
 Install a CWL runner. The most common one is `cwltool`:
 
 ```bash
-pip install cwltool
+pip3 install --user cwltool
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ pip install cwltool
 ### Run with default message
 
 ```bash
-cwltool hello_world.cwl
+python3 -m cwltool hello_world.cwl
 ```
 
 This will output: `Hello World`
@@ -45,8 +45,7 @@ This will output: `Hello World`
 ### Run with custom message
 
 ```bash
-cwltool hello_world.cwl hello_world-job.json
-```
+python3 -m cwltool hello_world.cwl hello_world-job.json```
 
 This will output: `Hello from CWL!`
 
