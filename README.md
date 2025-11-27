@@ -12,7 +12,7 @@ Tools and workflows described using CWL are portable across a variety of platfor
 
 - `pizza.cwl` - The CWL tool description file
 - `pizza-job.json` - An example input file with custom message
-- `hello_world-ro-crate/` - A Research Object Crate (RO-Crate) packaging of this workflow for reproducible research
+- `ro-crate/` - A Research Object Crate (RO-Crate) packaging of this workflow for reproducible research
 
 ## Prerequisites
 
@@ -70,18 +70,20 @@ python3 -m cwltool --validate pizza.cwl
 
 ![Research Objects Illustration](https://www.researchobject.org/images/research-objects-illustration-1920.png)
 
-This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) example in the `hello_world-ro-crate/` directory. RO-Crate is a lightweight approach to packaging research data with metadata, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
+This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) example in the `ro-crate/` directory. RO-Crate is a lightweight approach to packaging research data with metadata, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
 
 The RO-Crate includes:
 - The CWL workflow files
 - Structured metadata in `ro-crate-metadata.json`
 - Documentation
 
-See `hello_world-ro-crate/README.md` for more details about the RO-Crate structure and usage.
+See `ro-crate/README.md` for more details about the RO-Crate structure and usage.
 
 ## Contributing
 
 We welcome contributions! This repository uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. See [CONVENTIONAL_COMMITS.md](CONVENTIONAL_COMMITS.md) for details.
+
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing. For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Reporting Issues
 
@@ -104,6 +106,12 @@ docs: update README with CWL info
 ```
 
 A git hook validates commit messages automatically. The CI workflow also enforces conventional commit standards on pull requests.
+
+## Release Information
+
+For information about releases and versioning, see [RELEASE_PROCEDURE.md](RELEASE_PROCEDURE.md). The project follows [Semantic Versioning](https://semver.org/).
+
+All release notes are documented in [CHANGELOG.md](CHANGELOG.md).
 
 ## Learn More
 
