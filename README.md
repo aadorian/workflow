@@ -16,11 +16,54 @@ Tools and workflows described using CWL are portable across a variety of platfor
 
 ## Prerequisites
 
-Install a CWL runner. The most common one is `cwltool`:
+- Node.js (>=14.0.0) and npm (>=6.0.0)
+- Python 3.x
+- Git
+
+## Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-pip3 install --user cwltool
+git clone https://github.com/aadorian/workflow.git
+cd workflow
 ```
+
+### 2. Install Dependencies
+
+The project includes automated setup that installs `cwltool` and builds the RO-Crate:
+
+```bash
+# Automatic setup (recommended)
+npm install
+
+# Or manual setup
+npm run install:cwltool  # Install cwltool
+npm run setup            # Install cwltool and build RO-Crate
+```
+
+### 3. Verify Installation
+
+```bash
+# Validate CWL workflow
+npm run cwl:validate
+
+# Test workflow execution
+npm start
+```
+
+### 4. Build RO-Crate
+
+The RO-Crate is automatically built during setup, but you can rebuild it manually:
+
+```bash
+npm run ro-crate:build
+```
+
+This will:
+- Create/rebuild the `ro-crate/` directory
+- Generate RO-Crate metadata
+- Create a git tag (if it doesn't exist)
 
 ## Usage
 
@@ -36,8 +79,8 @@ npm start
 # or
 npm run cwl:start
 
-# Build/validate the CWL workflow
-npm run cwl:build
+# Validate the CWL workflow (syntax check)
+npm run cwl:validate
 
 # Remove CWL cache
 npm run cwl:remove
@@ -107,6 +150,54 @@ docs: update README with CWL info
 
 A git hook validates commit messages automatically. The CI workflow also enforces conventional commit standards on pull requests.
 
+### Development Workflow
+
+1. **Make your changes** to CWL files, documentation, or scripts
+
+2. **Validate your changes locally**:
+   ```bash
+   # Validate CWL files
+   npm run cwl:validate
+   
+   # Build and validate RO-Crate
+   npm run ro-crate:build
+   
+   # Test workflow execution
+   npm start
+   ```
+
+3. **Stage your changes**:
+   ```bash
+   git add .
+   ```
+
+4. **Commit using Conventional Commits**:
+   ```bash
+   git commit -m "feat: add new feature"
+   # or
+   git commit -m "fix(cwl): fix bug in workflow"
+   # or
+   git commit -m "docs: update documentation"
+   ```
+   
+   **Note**: The pre-commit hook will automatically:
+   - Build the RO-Crate
+   - Stage the RO-Crate directory
+   - Validate your commit message format
+
+5. **Push to remote**:
+   ```bash
+   git push workflow master
+   # or
+   git push origin master
+   ```
+   
+   **Note**: GitHub Actions will automatically:
+   - Validate all CWL files
+   - Build and validate RO-Crate
+   - Test workflow execution
+   - Check commit message format
+
 ### CI/CD Validation
 
 All pushes and pull requests are automatically validated:
@@ -118,11 +209,80 @@ All pushes and pull requests are automatically validated:
 
 See `.github/workflows/` for the complete CI/CD pipeline configuration.
 
+**Important**: If CI validation fails, the push/merge will be blocked. Fix any validation errors before pushing again.
+
 ## Release Information
 
 For information about releases and versioning, see [RELEASE_PROCEDURE.md](RELEASE_PROCEDURE.md). The project follows [Semantic Versioning](https://semver.org/).
 
 All release notes are documented in [CHANGELOG.md](CHANGELOG.md).
+
+## Troubleshooting
+
+### CWL Validation Fails
+
+If CWL validation fails:
+
+```bash
+# Check CWL syntax
+npm run cwl:validate
+
+# Common issues:
+# - Missing cwlVersion at the top of the file
+# - Invalid YAML syntax
+# - Missing required fields
+```
+
+### RO-Crate Build Fails
+
+If RO-Crate build fails:
+
+```bash
+# Rebuild RO-Crate
+npm run ro-crate:remove
+npm run ro-crate:build
+
+# Check that all required files exist:
+# - pizza.cwl
+# - pizza-job.json
+# - pizza.owl
+# - README.md
+```
+
+### Commit Message Validation Fails
+
+If your commit message is rejected:
+
+- Use Conventional Commits format: `<type>: <description>`
+- Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+- Example: `feat: add new workflow step`
+
+### CI/CD Validation Fails
+
+If GitHub Actions validation fails:
+
+1. Check the Actions tab in GitHub for detailed error messages
+2. Run validation locally:
+   ```bash
+   npm run cwl:validate
+   npm run ro-crate:build
+   ```
+3. Fix any errors and push again
+
+### cwltool Not Found
+
+If `cwltool` command is not found:
+
+```bash
+# Install cwltool
+npm run install:cwltool
+
+# Or manually
+pip3 install --user cwltool
+
+# Verify installation
+python3 -m cwltool --version
+```
 
 ## Learn More
 
