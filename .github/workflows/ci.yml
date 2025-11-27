@@ -38,7 +38,7 @@ jobs:
             ci
           requireScope: false
 
-  test:
+  validate-cwl:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,6 +51,84 @@ jobs:
       - name: Install cwltool
         run: pip install cwltool
       
-      - name: Test CWL workflow
-        run: cwltool hello_world.cwl
+      - name: Validate CWL files
+        run: |
+          echo "Validating CWL files..."
+          for cwl_file in *.cwl; do
+            if [ -f "$cwl_file" ]; then
+              echo "Validating $cwl_file..."
+              cwltool --validate "$cwl_file" || exit 1
+            fi
+          done
+          echo "✅ All CWL files are valid"
+      
+      - name: Test CWL workflow execution
+        run: |
+          if [ -f "pizza.cwl" ] && [ -f "pizza-job.json" ]; then
+            echo "Testing pizza.cwl workflow..."
+            cwltool pizza.cwl pizza-job.json || exit 1
+            echo "✅ CWL workflow executed successfully"
+          fi
+
+  validate-ro-crate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Install cwltool
+        run: pip install cwltool
+      
+      - name: Build RO-Crate
+        run: |
+          echo "Building RO-Crate..."
+          npm run ro-crate:build || exit 1
+          echo "✅ RO-Crate built successfully"
+      
+      - name: Validate RO-Crate structure
+        run: |
+          echo "Validating RO-Crate structure..."
+          if [ ! -d "ro-crate" ]; then
+            echo "❌ RO-Crate directory not found"
+            exit 1
+          fi
+          
+          if [ ! -f "ro-crate/ro-crate-metadata.json" ]; then
+            echo "❌ ro-crate-metadata.json not found"
+            exit 1
+          fi
+          
+          echo "✅ RO-Crate directory structure is valid"
+      
+      - name: Validate RO-Crate metadata JSON
+        run: |
+          echo "Validating RO-Crate metadata JSON..."
+          python3 -c "import json; json.load(open('ro-crate/ro-crate-metadata.json'))" || exit 1
+          echo "✅ RO-Crate metadata JSON is valid"
+      
+      - name: Validate CWL files in RO-Crate
+        run: |
+          echo "Validating CWL files in RO-Crate..."
+          if [ -f "ro-crate/pizza.cwl" ]; then
+            cwltool --validate ro-crate/pizza.cwl || exit 1
+            echo "✅ CWL file in RO-Crate is valid"
+          fi
+      
+      - name: Test RO-Crate workflow execution
+        run: |
+          if [ -f "ro-crate/pizza.cwl" ] && [ -f "ro-crate/pizza-job.json" ]; then
+            echo "Testing RO-Crate workflow execution..."
+            cd ro-crate
+            cwltool pizza.cwl pizza-job.json || exit 1
+            echo "✅ RO-Crate workflow executed successfully"
+          fi
 

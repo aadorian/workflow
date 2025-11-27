@@ -107,6 +107,17 @@ docs: update README with CWL info
 
 A git hook validates commit messages automatically. The CI workflow also enforces conventional commit standards on pull requests.
 
+### CI/CD Validation
+
+All pushes and pull requests are automatically validated:
+- ✅ CWL files are validated for syntax and correctness
+- ✅ RO-Crate is built and validated
+- ✅ RO-Crate metadata is checked
+- ✅ Workflows are tested for execution
+- ✅ Conventional commit messages are enforced
+
+See `.github/workflows/` for the complete CI/CD pipeline configuration.
+
 ## Release Information
 
 For information about releases and versioning, see [RELEASE_PROCEDURE.md](RELEASE_PROCEDURE.md). The project follows [Semantic Versioning](https://semver.org/).
