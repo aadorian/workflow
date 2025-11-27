@@ -23,6 +23,7 @@ Tools and workflows described using CWL are portable across a variety of platfor
 
 - `hello_world.cwl` - The CWL tool description file
 - `hello_world-job.json` - An example input file with custom message
+- `hello_world-ro-crate/` - A Research Object Crate (RO-Crate) packaging of this workflow for reproducible research
 
 ## Prerequisites
 
@@ -34,7 +35,35 @@ pip3 install --user cwltool
 
 ## Usage
 
-### Run with default message
+### Using npm scripts (recommended)
+
+This project includes npm scripts for easy workflow execution:
+
+```bash
+# Run with default message
+npm start
+# or
+npm run hello
+
+# Run with custom message
+npm run hello:custom
+
+# Validate CWL file
+npm run validate
+
+# Run all tests
+npm test
+
+# Test RO-Crate
+npm run test:ro-crate
+
+# Validate RO-Crate metadata
+npm run ro-crate:validate
+```
+
+### Using cwltool directly
+
+#### Run with default message
 
 ```bash
 python3 -m cwltool hello_world.cwl
@@ -42,12 +71,24 @@ python3 -m cwltool hello_world.cwl
 
 This will output: `Hello World`
 
-### Run with custom message
+#### Run with custom message
 
 ```bash
-python3 -m cwltool hello_world.cwl hello_world-job.json```
+python3 -m cwltool hello_world.cwl hello_world-job.json
+```
 
 This will output: `Hello from CWL!`
+
+## RO-Crate Example
+
+This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) example in the `hello_world-ro-crate/` directory. RO-Crate is a lightweight approach to packaging research data with metadata, making research Findable, Accessible, Interoperable, and Reusable (FAIR).
+
+The RO-Crate includes:
+- The CWL workflow files
+- Structured metadata in `ro-crate-metadata.json`
+- Documentation
+
+See `hello_world-ro-crate/README.md` for more details about the RO-Crate structure and usage.
 
 ## Contributing
 
@@ -67,6 +108,8 @@ A git hook validates commit messages automatically. The CI workflow also enforce
 - Official Website: https://www.commonwl.org/
 - CWL Specification: https://www.commonwl.org/specification/
 - Getting Started Guide: https://www.commonwl.org/getting-started/
+- Research Objects / RO-Crate: https://www.researchobject.org/
+- RO-Crate Specification: https://www.researchobject.org/ro-crate/
 - Conventional Commits: https://www.conventionalcommits.org/
 
 

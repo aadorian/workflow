@@ -1,0 +1,84 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      },
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "Hello World CWL Workflow RO-Crate",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow. This RO-Crate packages the CWL tool definition, job input file, and documentation to enable reproducible and shareable research workflows.",
+      "datePublished": "2025-01-27",
+      "license": {
+        "@id": "https://spdx.org/licenses/Apache-2.0"
+      },
+      "keywords": [
+        "CWL",
+        "Common Workflow Language",
+        "workflow",
+        "reproducibility",
+        "research object"
+      ],
+      "hasPart": [
+        {
+          "@id": "hello_world.cwl"
+        },
+        {
+          "@id": "hello_world-job.json"
+        },
+        {
+          "@id": "README.md"
+        }
+      ],
+      "creator": [
+        {
+          "@type": "Person",
+          "name": "Workflow Author"
+        }
+      ]
+    },
+    {
+      "@id": "hello_world.cwl",
+      "@type": "File",
+      "name": "Hello World CWL Tool",
+      "description": "A Common Workflow Language tool definition that implements a simple echo command with a customizable message parameter.",
+      "encodingFormat": "text/x-yaml",
+      "conformsTo": {
+        "@id": "https://w3id.org/cwl/v1.2/"
+      }
+    },
+    {
+      "@id": "hello_world-job.json",
+      "@type": "File",
+      "name": "Hello World CWL Job Input",
+      "description": "A CWL job input file providing a custom message for the hello_world workflow.",
+      "encodingFormat": "application/json"
+    },
+    {
+      "@id": "README.md",
+      "@type": "File",
+      "name": "README Documentation",
+      "description": "Documentation for the Hello World CWL workflow example.",
+      "encodingFormat": "text/markdown"
+    },
+    {
+      "@id": "https://w3id.org/cwl/v1.2/",
+      "@type": "CreativeWork",
+      "name": "Common Workflow Language v1.2"
+    },
+    {
+      "@id": "https://spdx.org/licenses/Apache-2.0",
+      "@type": "CreativeWork",
+      "name": "Apache License 2.0"
+    }
+  ]
+}
+

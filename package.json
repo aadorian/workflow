@@ -1,0 +1,37 @@
+{
+  "name": "cwl-hello-world-workflow",
+  "version": "1.0.0",
+  "description": "A Hello World example demonstrating Common Workflow Language (CWL) with RO-Crate packaging",
+  "scripts": {
+    "start": "npm run hello:default",
+    "hello:default": "python3 -m cwltool hello_world.cwl",
+    "hello:custom": "python3 -m cwltool hello_world.cwl hello_world-job.json",
+    "hello": "npm run hello:default",
+    "validate": "python3 -m cwltool --validate hello_world.cwl",
+    "validate:job": "python3 -m cwltool --validate hello_world.cwl hello_world-job.json",
+    "test": "npm run validate && npm run hello:default && npm run hello:custom",
+    "test:ro-crate": "cd hello_world-ro-crate && python3 -m cwltool hello_world.cwl hello_world-job.json",
+    "ro-crate:validate": "cd hello_world-ro-crate && python3 -m json.tool ro-crate-metadata.json > /dev/null && echo 'RO-Crate metadata JSON is valid'",
+    "clean": "rm -rf .cwltool_cache node_modules",
+    "precommit": "git add ."
+  },
+  "keywords": [
+    "cwl",
+    "common-workflow-language",
+    "workflow",
+    "ro-crate",
+    "research-object",
+    "reproducibility"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aadorian/workflow.git"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
+
