@@ -61,4 +61,3 @@ To validate this RO-Crate, you can use tools like:
 ## License
 
 This RO-Crate is licensed under Apache License 2.0.
-

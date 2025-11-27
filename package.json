@@ -12,6 +12,9 @@
     "test": "npm run validate && npm run hello:default && npm run hello:custom",
     "test:ro-crate": "cd hello_world-ro-crate && python3 -m cwltool hello_world.cwl hello_world-job.json",
     "ro-crate:validate": "cd hello_world-ro-crate && python3 -m json.tool ro-crate-metadata.json > /dev/null && echo 'RO-Crate metadata JSON is valid'",
+    "ro-crate:remove": "rm -rf hello_world-ro-crate && echo 'RO-Crate removed'",
+    "ro-crate:build": "bash scripts/build-ro-crate.sh",
+    "ro-crate:rebuild": "npm run ro-crate:remove && npm run ro-crate:build",
     "clean": "rm -rf .cwltool_cache node_modules",
     "precommit": "git add ."
   },

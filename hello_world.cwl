@@ -4,7 +4,7 @@ baseCommand: echo
 inputs:
   message:
     type: string
-    default: "Hello World"
+    default: "Hola Mundo"
     inputBinding:
       position: 1
 outputs: []

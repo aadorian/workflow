@@ -59,6 +59,14 @@ npm run test:ro-crate
 
 # Validate RO-Crate metadata
 npm run ro-crate:validate
+
+# Remove RO-Crate
+npm run ro-crate:remove
+
+# Build/rebuild RO-Crate
+npm run ro-crate:build
+# or rebuild (remove + build)
+npm run ro-crate:rebuild
 ```
 
 ### Using cwltool directly
