@@ -1,0 +1,8 @@
+SELECT DISTINCT ?class
+
+WHERE {
+  ?class a owl:Class .
+}
+
+ORDER BY ?class
+
