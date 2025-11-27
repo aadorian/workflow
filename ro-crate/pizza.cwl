@@ -1,10 +1,11 @@
+# Common Workflow Language (CWL) Hello World Example
+# This workflow demonstrates a simple echo command with multiple inputs
+# including a message string, pizza ontology file, and README documentation
+
 cwlVersion: v1.2
-
 class: CommandLineTool
-label: Pizza CWL Workflow
-doc: A Common Workflow Language tool definition that implements a simple echo command with pizza ontology and documentation inputs.
 
-
+# Base command to execute
 baseCommand: echo
 
 # Input parameters for the workflow
