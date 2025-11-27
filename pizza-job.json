@@ -1,5 +1,5 @@
 {
-  "message": "Hello from CWL!",
+  "message": "Hello running the Common Worlflow Language Job!",
   "pizza_owl": {
     "class": "File",
     "path": "pizza.owl"

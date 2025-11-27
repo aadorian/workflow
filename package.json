@@ -1,11 +1,11 @@
 {
   "name": "cwl-hello-world-workflow",
   "version": "1.0.0",
-  "description": "A Hello World example demonstrating Common Workflow Language (CWL) with RO-Crate packaging",
+  "description": "A Hello World example demonstrating Common Workflow Language (CWL) with RO-Crate packaging and a OWL example",
   "scripts": {
     "start": "npm run cwl:start",
     "cwl:start": "python3 -m cwltool pizza.cwl pizza-job.json",
-    "cwl:build": "python3 -m cwltool --validate pizza.cwl",
+    "cwl:validate": "python3 -m cwltool --validate pizza-job.json",
     "cwl:remove": "rm -rf .cwltool_cache",
     "ro-crate:start": "cd hello_world-ro-crate && python3 -m cwltool pizza.cwl pizza-job.json",
     "ro-crate:build": "bash scripts/build-ro-crate.sh",
