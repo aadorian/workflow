@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "A Hello World example demonstrating Common Workflow Language (CWL) with RO-Crate packaging and a OWL example",
   "scripts": {
+    "install:cwltool": "pip3 install --user cwltool",
+    "setup": "bash scripts/setup.sh",
     "start": "npm run cwl:start",
     "cwl:start": "python3 -m cwltool pizza.cwl pizza-job.json",
-    "cwl:validate": "python3 -m cwltool --validate pizza-job.json",
+    "cwl:validate": "python3 -m cwltool --validate pizza.cwl",
     "cwl:remove": "rm -rf .cwltool_cache",
-    "ro-crate:start": "cd hello_world-ro-crate && python3 -m cwltool pizza.cwl pizza-job.json",
-    "ro-crate:build": "bash scripts/build-ro-crate.sh",
-    "ro-crate:remove": "rm -rf hello_world-ro-crate && echo 'RO-Crate removed'"
+    "ro-crate:start": "cd ro-crate && python3 -m cwltool pizza.cwl pizza-job.json",
+    "ro-crate:build": "npm run ro-crate:remove  && bash scripts/build-ro-crate.sh",
+    "ro-crate:remove": "rm -rf ro-crate && echo 'RO-Crate removed'"
   },
   "dependencies": {
     "cwltool": "^3.1.0"

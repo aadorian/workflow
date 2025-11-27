@@ -14,8 +14,8 @@
     {
       "@id": "./",
       "@type": "Dataset",
-      "name": "Hello World CWL Workflow RO-Crate",
-      "description": "A Research Object Crate containing a Common Workflow Language (CWL) hello world example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
+      "name": "CWL Workflow RO-Crate",
+      "description": "A Research Object Crate containing a Common Workflow Language (CWL) example workflow with pizza ontology. This RO-Crate packages the CWL tool definition, job input file, ontology, and documentation to enable reproducible and shareable research workflows.",
       "datePublished": "2025-11-27",
       "license": {
         "@id": "https://spdx.org/licenses/Apache-2.0"
@@ -84,7 +84,7 @@
       "@id": "README.md",
       "@type": "File",
       "name": "README Documentation",
-      "description": "Documentation for the Hello World CWL workflow example.",
+      "description": "Documentation for the CWL workflow example.",
       "encodingFormat": "text/markdown"
     },
     {
