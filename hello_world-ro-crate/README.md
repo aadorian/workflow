@@ -8,21 +8,10 @@ Common Workflow Language (CWL) is an open standard for describing how to run com
 
 Tools and workflows described using CWL are portable across a variety of platforms that support the CWL standards. Using CWL, it is easy to scale complex data analysis and machine learning workflows from a single developer's laptop up to massively parallel cluster, cloud and high performance computing environments.
 
-## Key Features
-
-- **OPEN AND FREE**: Free and open standards
-- **COMMUNITY FIRST**: Community is a core principle of the CWL Project
-- **INTEROPERABILITY AND PORTABILITY**: Portable and interoperable across a variety of software and deployment environments
-- **VENDOR NEUTRALITY**: Developed by a multi-vendor working group of organizations and individuals/contributors
-- **REUSABILITY AND REPRODUCIBILITY**: Enables scientists to reuse and reproduce their data analysis workflows
-- **PARALLELIZATION AND SCALE**: Scalable from workstations to cluster, cloud, and high performance computing (HPC) environments
-- **ECOSYSTEM SUPPORT**: Supported by an ecosystem of tools, libraries, and editor plugins
-- **TRANSPARENT GOVERNANCE**: Designed with an open and transparent governance
-
 ## Files
 
-- `hello_world.cwl` - The CWL tool description file
-- `hello_world-job.json` - An example input file with custom message
+- `pizza.cwl` - The CWL tool description file
+- `pizza-job.json` - An example input file with custom message
 - `hello_world-ro-crate/` - A Research Object Crate (RO-Crate) packaging of this workflow for reproducible research
 
 ## Prerequisites
@@ -35,57 +24,47 @@ pip3 install --user cwltool
 
 ## Usage
 
-### Using npm scripts (recommended)
+### Using npm scripts
 
 This project includes npm scripts for easy workflow execution:
 
+#### CWL Workflow
+
 ```bash
-# Run with default message
+# Start/run the CWL workflow
 npm start
 # or
-npm run hello
+npm run cwl:start
 
-# Run with custom message
-npm run hello:custom
+# Build/validate the CWL workflow
+npm run cwl:build
 
-# Validate CWL file
-npm run validate
+# Remove CWL cache
+npm run cwl:remove
+```
 
-# Run all tests
-npm test
+#### RO-Crate
 
-# Test RO-Crate
-npm run test:ro-crate
+```bash
+# Start/run the workflow from RO-Crate
+npm run ro-crate:start
 
-# Validate RO-Crate metadata
-npm run ro-crate:validate
-
-# Remove RO-Crate
-npm run ro-crate:remove
-
-# Build/rebuild RO-Crate
+# Build the RO-Crate
 npm run ro-crate:build
-# or rebuild (remove + build)
-npm run ro-crate:rebuild
+
+# Remove the RO-Crate
+npm run ro-crate:remove
 ```
 
 ### Using cwltool directly
 
-#### Run with default message
-
 ```bash
-python3 -m cwltool hello_world.cwl
+# Run the workflow
+python3 -m cwltool pizza.cwl pizza-job.json
+
+# Validate the workflow
+python3 -m cwltool --validate pizza.cwl
 ```
-
-This will output: `Hello World`
-
-#### Run with custom message
-
-```bash
-python3 -m cwltool hello_world.cwl hello_world-job.json
-```
-
-This will output: `Hello from CWL!`
 
 ## RO-Crate Example
 

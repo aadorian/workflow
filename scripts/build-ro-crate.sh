@@ -21,8 +21,8 @@ mkdir -p "$CRATE_DIR"
 
 # Files to include in RO-Crate
 FILES_TO_COPY=(
-  "hello_world.cwl"
-  "hello_world-job.json"
+  "pizza.cwl"
+  "pizza-job.json"
   "pizza.owl"
   "README.md"
 )
@@ -61,8 +61,8 @@ for file in "${FILES_TO_COPY[@]}"; do
       *.cwl)
         ENCODING="text/x-yaml"
         TYPE="File"
-        NAME="Hello World CWL Tool"
-        DESC="A Common Workflow Language tool definition that implements a simple echo command with a customizable message parameter."
+        NAME="Pizza CWL Workflow"
+        DESC="A Common Workflow Language tool definition that implements a simple echo command with pizza ontology and documentation inputs."
         CONFORMS_TO=",
       \"conformsTo\": {
         \"@id\": \"https://w3id.org/cwl/v1.2/\"
@@ -71,8 +71,8 @@ for file in "${FILES_TO_COPY[@]}"; do
       *.json)
         ENCODING="application/json"
         TYPE="File"
-        NAME="Hello World CWL Job Input"
-        DESC="A CWL job input file providing a custom message for the hello_world workflow."
+        NAME="Pizza CWL Job Input"
+        DESC="A CWL job input file providing inputs for the pizza workflow including message, pizza ontology, and README."
         CONFORMS_TO=""
         ;;
       *.owl)

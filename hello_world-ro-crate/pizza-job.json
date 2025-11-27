@@ -3,6 +3,10 @@
   "pizza_owl": {
     "class": "File",
     "path": "pizza.owl"
+  },
+  "readme": {
+    "class": "File",
+    "path": "README.md"
   }
 }
 

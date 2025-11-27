@@ -31,10 +31,10 @@
       ],
       "hasPart": [
         {
-          "@id": "hello_world.cwl"
+          "@id": "pizza.cwl"
         },
         {
-          "@id": "hello_world-job.json"
+          "@id": "pizza-job.json"
         },
         {
           "@id": "pizza.owl"
@@ -51,20 +51,20 @@
       ]
     },
     {
-      "@id": "hello_world.cwl",
+      "@id": "pizza.cwl",
       "@type": "File",
-      "name": "Hello World CWL Tool",
-      "description": "A Common Workflow Language tool definition that implements a simple echo command with a customizable message parameter.",
+      "name": "Pizza CWL Workflow",
+      "description": "A Common Workflow Language tool definition that implements a simple echo command with pizza ontology and documentation inputs.",
       "encodingFormat": "text/x-yaml",
       "conformsTo": {
         "@id": "https://w3id.org/cwl/v1.2/"
       }
     },
     {
-      "@id": "hello_world-job.json",
+      "@id": "pizza-job.json",
       "@type": "File",
-      "name": "Hello World CWL Job Input",
-      "description": "A CWL job input file providing a custom message for the hello_world workflow.",
+      "name": "Pizza CWL Job Input",
+      "description": "A CWL job input file providing inputs for the pizza workflow including message, pizza ontology, and README.",
       "encodingFormat": "application/json"
     },
     {
