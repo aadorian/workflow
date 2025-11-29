@@ -1,4 +1,4 @@
-# CWL Hello World Example
+# Packaging Factory of Curated Elements
 
 This is a simple "Hello World" example demonstrating the Common Workflow Language (CWL).
 

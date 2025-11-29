@@ -74,3 +74,4 @@ The CI workflow validates that pull requests follow conventional commit standard
 - [Conventional Commits Specification](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
 
+
