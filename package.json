@@ -13,8 +13,8 @@
     "ro-crate:build": "npm run ro-crate:remove  && bash scripts/build-ro-crate.sh",
     "ro-crate:remove": "rm -rf ro-crate && echo 'RO-Crate removed'"
   },
-  "dependencies": {
-    "cwltool": "^3.1.0"
+  "devDependencies": {
+    "ro-crate-html-js": "^1.4.19"
   },
   "keywords": [
     "cwl",
