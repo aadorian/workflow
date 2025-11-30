@@ -103,6 +103,13 @@ docs: update README with CWL info
 
 A git hook validates commit messages automatically. The CI workflow also enforces conventional commit standards on pull requests.
 
+
+## Resources 
+
+RO-Crate in Python by Simone Leo, Bruno P. Kinoshita
+
+https://colab.research.google.com/drive/1yqyXUAspJyutudlU5GGWHqgdZlUnpDBf?usp=sharing
+
 ## Learn More
 
 - Official Website: https://www.commonwl.org/

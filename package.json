@@ -1,8 +1,9 @@
 {
   "name": "cwl-hello-world-workflow",
   "version": "1.0.0",
-  "description": "A Hello World example demonstrating Common Workflow Language (CWL) with RO-Crate packaging and a OWL example",
+  "description": "Common Workflow Language (CWL) with RO-Crate packaging and a OWL example",
   "scripts": {
+    "help": "echo '\n📋 Available Commands:\n\n  Setup & Installation:\n    npm run install:cwltool  - Install cwltool\n    npm run setup            - Run setup script\n\n  CWL Workflow:\n    npm run start            - Start CWL workflow (alias for cwl:start)\n    npm run cwl:start        - Run pizza workflow\n    npm run cwl:validate     - Validate pizza.cwl\n    npm run cwl:remove       - Remove cwltool cache\n\n  RO-Crate:\n    npm run ro-crate:start   - Run workflow in RO-Crate directory\n    npm run ro-crate:build   - Build RO-Crate\n    npm run ro-crate:remove  - Remove RO-Crate directory\n\n  Help:\n    npm run help             - Show this help message\n\n'",
     "install:cwltool": "pip3 install --user cwltool",
     "setup": "bash scripts/setup.sh",
     "start": "npm run cwl:start",
